@@ -3,5 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("hello")
+	fizzBuzz := FizzBuzz{}
+	for i := 1; i <= 100; i++ {
+		fmt.Print(fizzBuzz.Get(i))
+	}
 }
