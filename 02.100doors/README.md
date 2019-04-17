@@ -13,3 +13,9 @@ Question: What state are the doors in after the last
 pass? Which are open, which are closed?
 
 [Source http://rosettacode.org]
+
+## Solution
+
+> @##@####@######@########@##########@############@##############@################@##################@
+
+> Open: 1, 4, 9, 16, 25, 36, 49, 64, 81 and 100

@@ -1,24 +1,23 @@
 package main
 
-import "fmt"
-
-var Data [100]bool
+var data [100]bool
 
 func Init() [100]bool {
 	for i := 0; i < 100; i++ {
-		Data[i] = false
+		data[i] = false
 	}
-	return Data
+	return data
 }
 
 func Run(number int) [100]bool {
-	fmt.Println(number)
-	for j := number; j > 0; j-- {
-		for i := 1; i <= 100; i++ {
-			if i%j == 0 {
-				Data[i] = !Data[i]
+	for k, v := range data {
+		if number == 1 {
+			data[k] = !v
+		} else {
+			if k != 0 && (k+1)%number == 0 {
+				data[k] = !v
 			}
 		}
 	}
-	return Data
+	return data
 }
