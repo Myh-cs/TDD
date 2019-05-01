@@ -2,8 +2,6 @@
 
 import {sum}  from '../src/sum'
 
-// const sum = require('../src/sum')
-
 const table = [
     [1,1,2],
     [1,2,3],
@@ -24,5 +22,4 @@ describe('sum function', () => {
     test('adds 1 + 2 to equal 3', () => {
         expect(sum(1, 2)).toBe(3);
     })
-
 });
