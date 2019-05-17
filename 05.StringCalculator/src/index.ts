@@ -5,15 +5,15 @@ export interface IStringCalculator {
 }
 
 export class StringCalculator implements IStringCalculator {
-    character: string[] = [',', '\n']
+    character: string[] = [',', '\n', '-']
     add(str: string) {
         if (str.length === 0) {
             return 0
         }
-        if (str.indexOf('-') >= 0) {
+        if (str.indexOf(this.character[2]) >= 0) {
             throw new Error(`can't contain negative number`)
         }
-        if (str.indexOf(',') > 0 && str.indexOf('\n') > 0) {
+        if (str.indexOf(this.character[0]) > 0 && str.indexOf(this.character[1]) > 0) {
             let arr: string[] = []
             str.split(this.character[0]).forEach(item => {
                 item.split(this.character[1]).forEach(temp => {
