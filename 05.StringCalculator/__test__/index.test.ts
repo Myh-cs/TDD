@@ -26,6 +26,9 @@ describe('字符串计算器', () => {
         expect(stringCalculator.add('')).toBe(0)
     })
 
+    test('give "," should return 0', () => {
+        expect(stringCalculator.add('')).toBe(0)
+    })
     test.each([['1', 1], ['2',2]])('add(%s, %d)', (str, expected) => {
         expect(stringCalculator.add(str as string)).toEqual(expected)
     })
@@ -39,4 +42,13 @@ describe('字符串计算器', () => {
     test('give "1\n2" should return 3', () => {
         expect(stringCalculator.add('1\n2')).toBe(3)
     })
+
+    test('give "1\n2,3\n4" should return 10', () => {
+        expect(stringCalculator.add('1\n2,3\n4')).toBe(10)
+    })
+
+    test(`given str can't contain negative number`, () => {
+        expect(() => stringCalculator.add('-1,2,-3')).toThrowError(new Error(`can't contain negative number`))
+    })
+
 })
