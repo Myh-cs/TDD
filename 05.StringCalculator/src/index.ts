@@ -1,4 +1,3 @@
-import { parse } from "@babel/parser";
 
 export interface IStringCalculator {
     add(str: string):  number
