@@ -10,3 +10,22 @@
 * 两个数字，换行符分割 '1\n2' => 3
 * 以任意方式分割字符串 '1\n2,3\n4' => 10
 * 不允许使用负数 '-1,2,-3' => 'negatives not allowed: -1,-3'
+
+## Install
+
+```shell
+$ yarn # npm install
+```
+
+## Run
+
+```shell
+$ tsc src/main.ts
+$ node src/main.js
+```
+
+## Test
+
+```shell
+$ yarn test
+```
