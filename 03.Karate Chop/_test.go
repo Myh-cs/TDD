@@ -13,9 +13,8 @@ type InputType struct {
 	Search int
 	Arr    []int
 }
-type Out struct{}
 
-func testChop(t testing.T) {
+func testChop(t *testing.T) {
 	tests := []struct {
 		Input InputType
 		Out   int

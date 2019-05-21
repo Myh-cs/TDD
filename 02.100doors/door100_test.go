@@ -43,6 +43,6 @@ func TestRun3(t *testing.T) {
 	actual := [...]bool{got[0], got[1], got[2]}
 	expect := [...]bool{true, false, true}
 	if expect != actual {
-		t.Errorf("exec Run(2), expect %v, but got %v", expect, actual)
+		t.Errorf("exec Run(3), expect %v, but got %v", expect, actual)
 	}
 }
