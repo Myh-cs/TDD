@@ -42,15 +42,15 @@ describe('args', () => {
         })
 
         test('schema should have flag l', () => {
-            expect(scheme.l).toBeDefined()
+            expect(scheme.isLogging).toBeDefined()
         })
         test('schema should have flag p', () => {
             const scheme = new Schema() as ISchema
-            expect(scheme.p).toBeDefined()
+            expect(scheme.port).toBeDefined()
         })
         test('schema should have flag d', () => {
             const scheme = new Schema() as ISchema
-            expect(scheme.d).toBeDefined()
+            expect(scheme.directory).toBeDefined()
         })
         
     })
@@ -74,6 +74,12 @@ describe('args', () => {
             test(`schema should have default value false of ${input}`, () => {
                 expect(input).toStrictEqual(expected)
             })
+        })
+    })
+    describe('schema getValue', () => {
+        test(`give l should return return false`, () => {
+            const schema = new Schema()
+            expect(schema.getValueFor('l')).toBe(false)
         })
     })
 })

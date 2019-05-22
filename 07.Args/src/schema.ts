@@ -1,9 +1,18 @@
 
 export interface ISchema {
-    [key: string]: {
-        type: string,
-        default: Boolean| Number| String
+    isLogging: {
+        type: String
+        default: Boolean
     }
+    port: {
+        type: String,
+        default: Number
+    }
+    directory: {
+        type: String,
+        default: String
+    }
+    getValueFor(flat: string): String| Number|Boolean
 }
 
 interface  IParams {
@@ -13,22 +22,43 @@ interface  IParams {
 }
 
 export class Schema implements ISchema {
-    [key: string]: { type: string; default: String | Number | Boolean; };
+    isLogging: { type: String; default: Boolean; };
+    port: { type: String; default: Number; };
+    directory: { type: String; default: String; };
+    
     constructor(params?: IParams){
-        return {
-            'l': {
-                type: 'boolean',
-                default: params!.l || false
-            }, 
-            'p': {
-                type: 'number',
-                default: params!.p|| 0
-            },
-            'd': {
-                type: 'string',
-                default: params!.d || ''
-            }
+        this.isLogging = {
+            type: 'boolean',
+            default: params!.l || false
         }
+        this.port = {
+            type: 'number',
+            default: params!.p || 0
+        }
+        this.directory = {
+            type: 'string',
+            default: params!.d || ''
+        }
+    }
+    getValueFor(flag: string): Boolean|Number|String {
+        let result: Boolean | Number | String
+        switch (flag){
+            case 'l': {
+                result = this.isLogging.default
+                break
+            }
+            case 'p': {
+                result = this.port.default
+                break
+            }
+            case 'd': {
+                result = this.directory.default
+                break
+            }
+            default:
+                result = 'wrong type '
+        }
+        return result
     }
 }
 
