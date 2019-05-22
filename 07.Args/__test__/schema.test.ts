@@ -57,13 +57,22 @@ describe('args', () => {
     describe('batch test schema', () => {
         const schemaTester: ISchema = new Schema()
         const testTable = [
-            [schemaTester.l.default, false],
-            [schemaTester.p.default, 0],
-            [schemaTester.d.default, '']
+            [schemaTester.l, {
+                type: 'Boolean',
+                default: false
+            }],
+            [schemaTester.p, {
+                type: 'Number',
+                default: 0
+            }],
+            [schemaTester.d, {
+                type: 'String',
+                default: ''
+            }]
         ]
         describe.each(testTable)('%v, should be %v', (input, expected) => {
             test(`schema should have default value false of ${input}`, () => {
-                expect(input).toBe(expected)
+                expect(input).toStrictEqual(expected)
             })
         })
     })
