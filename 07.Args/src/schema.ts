@@ -6,21 +6,27 @@ export interface ISchema {
     }
 }
 
+interface  IParams {
+    l: Boolean,
+    p: Number,
+    d: String
+}
+
 export class Schema implements ISchema {
     [key: string]: { type: string; default: String | Number | Boolean; };
-    constructor() {
+    constructor(params?: IParams){
         return {
             'l': {
-                type: 'Boolean',
-                default: false
+                type: 'boolean',
+                default: params!.l || false
             }, 
             'p': {
-                type: 'Number',
-                default: 0
+                type: 'number',
+                default: params!.p|| 0
             },
             'd': {
-                type: 'String',
-                default: ''
+                type: 'string',
+                default: params!.d || ''
             }
         }
     }
