@@ -27,7 +27,7 @@
 
 import { ISchema, Schema } from '../src/schema'
 
-describe('args', () => {
+describe('args without params', () => {
     describe('init.....', () => {
         test('init...', () => {
             const answer = 42
@@ -41,45 +41,90 @@ describe('args', () => {
             scheme = new Schema()
         })
 
-        test('schema should have flag l', () => {
+        test('schema should have isLogging', () => {
             expect(scheme.isLogging).toBeDefined()
         })
-        test('schema should have flag p', () => {
+        test('schema should have port', () => {
             const scheme = new Schema() as ISchema
             expect(scheme.port).toBeDefined()
         })
-        test('schema should have flag d', () => {
+        test('schema should have directory', () => {
             const scheme = new Schema() as ISchema
             expect(scheme.directory).toBeDefined()
         })
         
     })
-    describe('batch test schema', () => {
+    describe('test schema default value', () => {
         const schemaTester: ISchema = new Schema()
-        const testTable = [
-            [schemaTester.l, {
-                type: 'Boolean',
-                default: false
-            }],
-            [schemaTester.p, {
-                type: 'Number',
-                default: 0
-            }],
-            [schemaTester.d, {
-                type: 'String',
-                default: ''
-            }]
-        ]
-        describe.each(testTable)('%v, should be %v', (input, expected) => {
-            test(`schema should have default value false of ${input}`, () => {
-                expect(input).toStrictEqual(expected)
-            })
+        test(`schema.isLogging should have default value false of `, () => {
+            expect(schemaTester.isLogging).toBeDefined()
+            expect(schemaTester.isLogging.default).toBe(false)
+        })
+        test(`schema.port should have default value 0 of `, () => {
+            expect(schemaTester.port).toBeDefined()
+            expect(schemaTester.port.default).toBe(0)
+        })
+        test(`schema.directory should have default value false of `, () => {
+            expect(schemaTester.directory).toBeDefined()
+            expect(schemaTester.directory.default).toBe('')
+        })
+    })
+    describe('test schema with params', () => {
+        
+        const schemaTester: ISchema = new Schema()
+        test(`schema.isLogging should have default value false of `, () => {
+            expect(schemaTester.isLogging).toBeDefined()
+            expect(schemaTester.isLogging.default).toBe(false)
+        })
+        test(`schema.port should have default value 0 of `, () => {
+            expect(schemaTester.port).toBeDefined()
+            expect(schemaTester.port.default).toBe(0)
+        })
+        test(`schema.directory should have default value false of `, () => {
+            expect(schemaTester.directory).toBeDefined()
+            expect(schemaTester.directory.default).toBe('')
         })
     })
     describe('schema getValue', () => {
-        test(`give l should return return false`, () => {
+        test(`give l should return false`, () => {
             const schema = new Schema()
             expect(schema.getValueFor('l')).toBe(false)
         })
+        test(`give p should return 0`, () => {
+            const schema = new Schema()
+            expect(schema.getValueFor('p')).toBe(0)
+        })
+        test(`give d should return ''`, () => {
+            const schema = new Schema()
+            expect(schema.getValueFor('d')).toBe('')
+        })
+        test(`give x should return 'W'`, () => {
+            const schema = new Schema()
+            expect(schema.getValueFor('x')).toBe('wrong type! Please entry correctly！')
+        })
+    })
+})
+
+describe('args with params', () => {
+    describe('params should be parsed', () => {
+        const params = '-l -p 8080 -d /user/home'
+        const schema = new Schema(params)
+        test('isLogging should be false', () => {
+            expect(schema.isLogging.default).toBeFalsy() 
+        })
+        test('port should be 8080', () => {
+            expect(schema.port.default).toEqual(8080)
+        })
+        test('directory should be /user/home', () => {
+            expect(schema.directory.default).toEqual('/user/home')
+        })
+    })
+    describe('l is true in param should be parsed', () => {
+        const params = '-l true -p 8080 -d /user/home'
+        const schema = new Schema(params)
+        test('isLogging should be true', () => {
+            expect(schema.isLogging.default).toBeTruthy()
+        })
+        
     })
 })

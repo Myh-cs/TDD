@@ -22,22 +22,52 @@ interface  IParams {
 }
 
 export class Schema implements ISchema {
-    isLogging: { type: String; default: Boolean; };
-    port: { type: String; default: Number; };
-    directory: { type: String; default: String; };
-    
-    constructor(params?: IParams){
+    isLogging: {
+        type: String;
+        default: Boolean;
+    };
+    port: {
+        type: String;
+        default: Number;
+    };
+    directory: {
+        type: String;
+        default: String;
+    };
+
+    constructor(params?: string) {
         this.isLogging = {
             type: 'boolean',
-            default: params!.l || false
+            default: false
         }
         this.port = {
             type: 'number',
-            default: params!.p || 0
+            default:  0
         }
         this.directory = {
             type: 'string',
-            default: params!.d || ''
+            default: ''
+        }
+        params && this.parse(params)
+    }
+    
+    parse(params: string){
+        // Todo
+        // 解析params
+        const paramsIsLogging = params.match(/.*/)!
+        const port = params.match(/p\s(\d+)/)![1]
+        const directory = params.match(/d\s(.*)\s?/)![1]
+        this.isLogging = {
+            type: 'boolean',
+            default: paramsIsLogging[1] === 'true'? true : false
+        }
+        this.port = {
+            type: 'number',
+            default: Number(port) || 0
+        }
+        this.directory = {
+            type: 'string',
+            default: directory || ''
         }
     }
     getValueFor(flag: string): Boolean|Number|String {
@@ -56,7 +86,8 @@ export class Schema implements ISchema {
                 break
             }
             default:
-                result = 'wrong type '
+                result = 'wrong type! Please entry correctly！'
+                break
         }
         return result
     }
