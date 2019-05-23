@@ -52,7 +52,6 @@ export class Args implements IArgs {
     }
 
     parse(params: string) {
-        // Todo
         const paramsIsLogging = params.match(/-l(\s(\w+))+/)
         const port = params.match(/p\s(\d+)/)
         const directory = params.match(/-d\s([a-zA-Z\/]+)?/)
