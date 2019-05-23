@@ -1,5 +1,5 @@
 
-export interface ISchema {
+export interface IArgs {
     isLogging: {
         type: String
         default: Boolean
@@ -12,16 +12,16 @@ export interface ISchema {
         type: String,
         default: String
     }
-    getValueFor(flat: string): String| Number|Boolean
+    getValueFor(flat: string): String | Number | Boolean
 }
 
-interface  IParams {
+interface IParams {
     l: Boolean,
     p: Number,
     d: String
 }
 
-export class Schema implements ISchema {
+export class Args implements IArgs {
     isLogging: {
         type: String;
         default: Boolean;
@@ -42,7 +42,7 @@ export class Schema implements ISchema {
         }
         this.port = {
             type: 'number',
-            default:  0
+            default: 0
         }
         this.directory = {
             type: 'string',
@@ -50,29 +50,28 @@ export class Schema implements ISchema {
         }
         params && this.parse(params)
     }
-    
-    parse(params: string){
+
+    parse(params: string) {
         // Todo
-        // 解析params
-        const paramsIsLogging = params.match(/.*/)!
-        const port = params.match(/p\s(\d+)/)![1]
-        const directory = params.match(/d\s(.*)\s?/)![1]
+        const paramsIsLogging = params.match(/-l(\s(\w+))+/)
+        const port = params.match(/p\s(\d+)/)
+        const directory = params.match(/-d\s([a-zA-Z\/]+)?/)
         this.isLogging = {
             type: 'boolean',
-            default: paramsIsLogging[1] === 'true'? true : false
+            default: paramsIsLogging && paramsIsLogging[2] === 'true' ? true : false
         }
         this.port = {
             type: 'number',
-            default: Number(port) || 0
+            default: port && Number(port[1]) || 0
         }
         this.directory = {
             type: 'string',
-            default: directory || ''
+            default: directory && directory[1] || ''
         }
     }
-    getValueFor(flag: string): Boolean|Number|String {
+    getValueFor(flag: string): Boolean | Number | String {
         let result: Boolean | Number | String
-        switch (flag){
+        switch (flag) {
             case 'l': {
                 result = this.isLogging.default
                 break
