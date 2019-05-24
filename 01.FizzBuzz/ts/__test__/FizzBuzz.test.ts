@@ -2,7 +2,7 @@
 
 import FizzBuzz from '../src/FizzBuzz'
 
-describe('fizzbuzz', () => {
+describe('fizzBuzz', () => {
     let fizzBuzz: FizzBuzz
     beforeEach(() => {
         fizzBuzz = new FizzBuzz()
